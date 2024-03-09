@@ -202,6 +202,9 @@ def booking(request):
             book.razorpay_order_id = payment['id']
             book.save()
 
+            request.session['name']= book.bname
+            print(request.session['name'])
+
             context = {
                     'payment': payment,
                     'book':book,  # Ensure the amount is in paise
@@ -222,6 +225,16 @@ def booking(request):
 
 def payments(request):
     return render (request,"payment.html")
+
+def success(request):
+    booking = Booking.objects.get(bname = request.session['name'])
+    razorpay_payment_id = request.GET.get('razorpay_payment_id')    
+
+    # Update the booking instance with the Razorpay payment ID
+    booking.razorpay_payment_id = razorpay_payment_id
+    booking.paid = True
+    booking.save()
+    return render(request, 'success.html')
      
 def vehical (request):  
     return render(request,'vehical.html')
@@ -234,14 +247,3 @@ def contact(request):
 
 def about(request):
     return render(request,"about.html")
-
-def success(request):
-    return render(request,"success.html")
-    # user=User.objects.get(uemail=request.POST['uemail'])
-    # request.session['uemail'] = user.uemail
-    # if user.razorpay_order_id=="":
-    #     user.paid=False
-    #     return render(request,"index.html")
-    # else:
-    #     user.paid=True
-    #     return render(request,"success.html")
