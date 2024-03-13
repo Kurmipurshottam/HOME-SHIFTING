@@ -28,4 +28,8 @@ urlpatterns = [
     path('delivery_profile_update', views.delivery_profile_update, name='delivery_profile_update'),
     path('delivery_login', views.delivery_login, name='delivery_login'),
     path('delivery_logout', views.delivery_logout, name='delivery_logout'),
+    path('packages', views.packages, name='packages'),
+    path('packages_details', views.packages_details, name='packages_details'),
+    path('dpayments', views.dpayments, name='dpayments'),
+
 ]

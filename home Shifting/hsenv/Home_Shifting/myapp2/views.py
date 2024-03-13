@@ -28,8 +28,8 @@ def delivery_signup(request):
                     t_pancard_details = request.POST['pan_card'],
                     t_drivinglicence_details = request.POST['driving_licence'],
                     t_rcnumber = request.POST['rc_number'],
-                    t_packagetype = request.POST['package_type'],
-                    t_packageprice = request.POST['package_price'],
+                    # t_packagetype = request.POST['package_type'],
+                    # t_packageprice = request.POST['package_price'],
                     t_contact = request.POST['contact'],
                     t_email = request.POST['email'],
                     t_password = request.POST['password'],
@@ -38,8 +38,7 @@ def delivery_signup(request):
                 msg = "Your Registration Done ...."
                 print("============",msg)
                 messages.success(request, msg)
-                return render(request,'delivery_signup.html')
-                return redirect('delivery_login')
+                return  render(request,"packages_details.html")
                 # add ragistration than redirect login page
             else:
                 pmsg="Password and Confim Password Does Not Matched !!!"
@@ -63,7 +62,7 @@ def delivery_login(request):
             print(">>>>>>>>>>>> login successfully >>>>>>>>>>>>>>>>>...")
             msg = "login successfully"
             messages.success(request,msg)
-            return redirect('delivery_index')  
+            return redirect('packages_details')  
         except: 
             msg="Your email or password is not match !!!!"
             messages.error(request,msg)
@@ -119,5 +118,40 @@ def delivery_profile_update(request):
        # return render(request,"delivery_profile.html",{'truckpartner':truckpartner})
     else:
         return render(request,"delivery_profile_update.html")
+    
+def packages(request):
+    if request.POST:
+        truckpartner =Truckpartner.objects.get(t_email = request.POST['email'])
+        if truckpartner:
+            price = int(request.POST.get('price'))
+            pk = Packages.objects.create(
+                packages_name = request.POST['ptype'],
+                price = price
+            )
+            request.session['email'] = request.POST['email']
 
+            client = razorpay.Client(auth = (settings.RAZORPAY_KEY_ID,settings.RAZORPAY_KEY_SECRET))
+            payment = client.order.create({'amount': pk.price * 100, 'currency': 'INR', 'payment_capture': 1})
+            pk.razorpay_order_id = payment['id']  
+            pk.save()
 
+            p = request.session['ptype']= pk.packages_name
+            print(p)
+            context = {
+                    'payment': payment,
+                    'pk':pk,  # Ensure the amount is in paise
+                }
+            print(context)
+            return render(request,'payments.html',context)
+        else:
+            msg = 'your email not register please signup'
+            messages.error(request,msg)
+            return redirect('delivery_signup')
+    else:
+        return render(request,"packages.html")
+    
+def packages_details(request):
+    return render(request,"packages_details.html")
+
+def dpayments(request):
+    return render(request,"dpayments.html")
