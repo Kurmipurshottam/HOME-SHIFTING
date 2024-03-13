@@ -21,6 +21,7 @@ from myapp import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('booking', views.booking, name='booking'),
+    path('mybooking', views.mybooking, name='mybooking'),
     path('vehical', views.vehical, name='vehical'),
     path('service', views.service, name='service'),
     path('contact', views.contact, name='contact'),
@@ -34,5 +35,7 @@ urlpatterns = [
     path('resetpass', views.resetpass, name='resetpass'),
     path('payments', views.payments, name='payments'),
     path('success', views.success, name='success'),
+    path('utrack/ <int:pk>/',views.utrack, name="utrack"),
+    path('cancel/ <int:pk>/',views.cancel, name="cancel"),
     
 ]

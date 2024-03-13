@@ -17,9 +17,9 @@ def delivery_signup(request):
            print("=================Email Alredy exits===================")
            truckpartner = Truckpartner.objects.get(t_email = request.POST['email'])
            print(">>>>>>>>>>>>>>>>Email Alredy Exist!!!!")
-           msg1 = "email Alredy Exist !!!!!"
-           messages.error(request,msg1)
-           return redirect('delivery_login')
+           msg = "email Alredy Exist !!!!!"
+           messages.error(request,msg)
+           return redirect('delivery_signup')
         except:
             if request.POST['password'] == request.POST['confirm_password']:
                 truckpartner = Truckpartner.objects.create(
@@ -28,6 +28,7 @@ def delivery_signup(request):
                     t_pancard_details = request.POST['pan_card'],
                     t_drivinglicence_details = request.POST['driving_licence'],
                     t_rcnumber = request.POST['rc_number'],
+                    t_packagetype = request.POST['package_type'],
                     t_contact = request.POST['contact'],
                     t_email = request.POST['email'],
                     t_password = request.POST['password'],
@@ -36,7 +37,8 @@ def delivery_signup(request):
                 msg = "Your Registration Done ...."
                 print("============",msg)
                 messages.success(request, msg)
-                return redirect('delivery_signup')
+                return render(request,'delivery_signup.html')
+                return redirect('delivery_login')
                 # add ragistration than redirect login page
             else:
                 pmsg="Password and Confim Password Does Not Matched !!!"

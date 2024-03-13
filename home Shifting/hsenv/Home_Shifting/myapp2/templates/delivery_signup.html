@@ -176,6 +176,24 @@
                                                                 <input type="text" id="exampleInputEmail2" name="rc_number"
                                                                     placeholder="Enter RC Book Number" class="form-control ps-3">
                                                             </div>
+                                                            <div class="bor8 m-b-30 how-pos4-parent">
+                                                                <label for="exampleInputEmail2"
+                                                                    class="form-label fs-6 text-uppercase fw-bold text-black"> Select Package
+                                                                </label>
+                                                                <select name="package_type" id="package_type" style="width: 27.3rem; height: 2.5rem;">
+                                                                    <option style="text-align: center;"  selected disabled>Please Select Package Type</option><hr>
+                                                                    <option value="silver" data-price="10000" style="text-align: center;">S i l v e r</option><hr>
+                                                                    <option value="gold" data-price="20000" style="text-align: center;">G o l d</option><hr>
+                                                                    <option value="platinum" data-price="30000" style="text-align: center;">P l a t i n u m</option><hr>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-input col-lg-12 my-4">
+                                                                <label for="exampleInputEmail2"
+                                                                    class="form-label fs-6 text-uppercase fw-bold text-black">Package Price
+                                                                    </label>
+                                                                <input type="text" id="package_price" name="package_price"
+                                                                    placeholder="Package Price" class="form-control ps-3" readonly>
+                                                            </div>
                                                             <div class="form-input col-lg-12 my-4">
                                                                 <label for="exampleInputEmail2"
                                                                     class="form-label fs-6 text-uppercase fw-bold text-black">Contct Number
@@ -777,91 +795,30 @@
           </script> 
       
           
-          <script>
-              document.addEventListener('DOMContentLoaded', function () {
-                  // Get references to the select and price input
-                  var houseTypeSelect = document.getElementById('houseType');
-                  var priceInput = document.getElementById('price');
           
-                  // Add an event listener to the select element
-                  houseTypeSelect.addEventListener('change', function () {
-                      // Get the selected option
-                      var selectedOption = houseTypeSelect.options[houseTypeSelect.selectedIndex];
-          
-                      // Get the price from the data attribute
-                      var price = selectedOption.getAttribute('data-price');
-          
-                      // Update the price input field
-                      priceInput.value = price;
-                  });
-              });
-          </script>
 
 
 
-
-
-
-
-
-             <!-- Razorpay integration -->
-             <input type="hidden" id="razorpay_order_id" name="razorpay_order_id">
-             <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-             <script>
-                 document.addEventListener('DOMContentLoaded', function () {
-                     var houseTypeSelect = document.getElementById('houseType');
-                     var priceInput = document.getElementById('price');
-                     var razorpayOrderIdInput = document.getElementById('razorpay_order_id');
-
-                     houseTypeSelect.addEventListener('change', function () {
-                         var selectedOption = houseTypeSelect.options[houseTypeSelect.selectedIndex];
-                         var selectedPrice = selectedOption.getAttribute('data-price');
-                         priceInput.value = selectedPrice;
-
-                         // Fetch Razorpay order ID from your Django view
-                         fetch('{% url "booking" %}', {
-                             method: 'POST',
-                             headers: {
-                                 'Content-Type': 'application/json',
-                                 'X-CSRFToken': '{{ csrf_token }}',
-                             },
-                             body: JSON.stringify({
-                                 amount: selectedPrice * 100,  // Convert to paisa
-                             }),
-                         })
-                         .then(response => response.json())
-                         .then(data => {
-                             razorpayOrderIdInput.value = data.order_id;
-                         });
-                     });
-
-                     // Razorpay checkout script
-                     var razorpayOrderID = "{{ order_id }}";  // Replace with the correct template variable
-                     var options = {
-                         key: "{{ settings.RAZORPAY_KEY_ID }}",  // Replace with your actual Razorpay key
-                         amount: {{ amount }},  // Amount in paisa
-                         currency: "{{ currency }}",  // Replace with your currency code
-                         name: "{{ name }}",  // Replace with the user's name or any other identifier
-                         description: "Booking Payment",
-                         order_id: razorpayOrderID,
-                         handler: function (response) {
-                             // Handle the success callback, e.g., update the booking status
-                             // You may want to make an AJAX request to your server to update the payment status
-                             console.log('Payment successful:', response);
-
-
-                         },
-                         prefill: {
-                             name: "{{ name }}",
-                             email: "{{ request.session.uemail }}",  // Replace with the user's email
-                         },
-                     };
-
-                     var rzp = new Razorpay(options);
-                     rzp.open();
-                 });
-             </script>
-          
+            
+            <script>
+                window.onload = function() {
+                    // Get references to the select element and the package price input field
+                    var packageTypeSelect = document.getElementById("package_type");
+                    var packagePriceInput = document.getElementById("package_price");
+            
+                    // Add event listener to the select element
+                    packageTypeSelect.addEventListener("change", function() {
+                        // Get the selected option
+                        var selectedOption = packageTypeSelect.options[packageTypeSelect.selectedIndex];
+            
+                        // Update the package price input field with the data-price attribute of the selected option
+                        packagePriceInput.value = selectedOption.getAttribute("data-price");
+                    });
+            
+                    // Trigger the change event on page load to initialize the package price
+                    packageTypeSelect.dispatchEvent(new Event('change'));
+                };
+            </script>
 
 
         
