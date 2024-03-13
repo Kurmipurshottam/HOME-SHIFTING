@@ -12,6 +12,7 @@ class Truckpartner(models.Model):
 	t_password = models.CharField(max_length = 50)
 	t_rcnumber = models.CharField(max_length = 10)
 	t_packagetype = models.CharField(default="silver",max_length = 50)
+	t_packageprice = models.PositiveIntegerField(null=True)
 	t_aadharcard_details = models.CharField(max_length = 12 , unique = True)
 	t_pancard_details = models.CharField(max_length = 10 , unique = True)
 	t_drivinglicence_details = models.CharField(max_length = 15 , unique = True)

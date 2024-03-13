@@ -29,6 +29,7 @@ def delivery_signup(request):
                     t_drivinglicence_details = request.POST['driving_licence'],
                     t_rcnumber = request.POST['rc_number'],
                     t_packagetype = request.POST['package_type'],
+                    t_packageprice = request.POST['package_price'],
                     t_contact = request.POST['contact'],
                     t_email = request.POST['email'],
                     t_password = request.POST['password'],
