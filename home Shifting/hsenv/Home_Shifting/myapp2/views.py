@@ -201,8 +201,16 @@ def reject(request):
     truckpartner = Truckpartner.objects.get(t_email = request.session['email'])
     truckpartner.on_work = False
     truckpartner.save()
-    return redirect('delivery_index')
-
+    reject_status=False
+    if truckpartner.on_work == False:
+        reject_status=True
+        msg="Ride Rejected Successfully"
+        messages.success(request,msg)
+        return render(request,"delivery_index.html",{'reject_status':reject_status})
+    else:
+        msg="Ride Rejected Failed"
+        messages.error(request,msg)
+        return redirect('delivery_index')
 
 def finishride(request):
     truckpartner = Truckpartner.objects.get(t_email = request.session['email'])
