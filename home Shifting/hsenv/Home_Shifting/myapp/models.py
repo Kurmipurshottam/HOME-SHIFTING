@@ -24,6 +24,7 @@ class Booking(models.Model):
     razorpay_order_id=models.CharField(max_length=100,null=True,blank=True)
     razorpay_payment_id=models.CharField(max_length=100,null=True,blank=True)
     status = models.CharField(max_length=20,choices = ORDERSTATUS,default="Booking")
+    statuscheck = models.BooleanField(default = False)
 
      # Add flags for statuses
     house_type_active = models.BooleanField(default=False)

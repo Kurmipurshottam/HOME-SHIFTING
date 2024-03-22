@@ -63,9 +63,9 @@
                         <li class="nav-item">
                             <a class="nav-link px-3" href="{% url "contact" %}">Contact</a>
                         </li>
-                        
-                        
-
+                        <li class="nav-item">
+                            <a class="nav-link px-3" href="{% url "packages_details" %}">Buy Package</a>
+                        </li>
                     </ul>
 
                     <div class="d-flex mt-5 mt-lg-0 ps-xl-5 align-items-center justify-content-center ">
@@ -472,11 +472,6 @@
                         </div>
 
                     </div>
-                    <div class="pricing-button">
-                        <a href="{% url 'packages' %}"><button class="btn btn-primary">Choose Plan </button></a>
-                    </div>
-
-                    
                 </div>
             </div>
 
@@ -506,11 +501,6 @@
                         </div>
 
                     </div>
-                    <div class="pricing-button">
-                        <a href="{% url "packages" %}"><button class="btn btn-primary">Choose Plan </button></a>
-                    </div>
-
-                    
                 </div>
             </div>
 
@@ -540,9 +530,7 @@
                         </div>
 
                     </div>
-                    <div class="pricing-button">
-                        <a href="{% url "packages" %}"><button class="btn btn-primary">Choose Plan </button></a>
-                    </div>  
+                      
                     
                 </div>
             </div>
@@ -631,40 +619,69 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.7/dist/iconify-icon.min.js"></script>
     <script>
-        // ragistration sucessfully 
-        document.addEventListener("DOMContentLoaded", function () {
-          {% if messages %}
-              {% for message in messages %}
-                  Swal.fire({
-                      title: "{{ message }}",
-                      //text: "{{ message }}",
-                      icon: "{{ message.tags }}",
-                  });
-              {% endfor %}
-          {% endif %}
-      });
-
-      // email alredy exsits
-      {% if messages %}
-          {% for message in messages %}
-              Swal.fire({
-                  title: "{{ message.tags }}",
-                  text: "{{ message }}",
-                  icon: "{{ message.tags }}",
-              });
-          {% endfor %}
-      {% endif %}
-
-      // upassword and ucpassword can not be same show sweetalert msg
-      {% if pmsg %}
-      Swal.fire({
-          title: 'Error!',
-          text: '{{ pmsg }}',
-          icon: 'error',
-          confirmButtonText: 'OK'
-      });
-      {% endif %}
-  </script>
+        <script src="{% static 'myapp2/js/script.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+           <script>
+                 // ragistration sucessfully 
+                 document.addEventListener("DOMContentLoaded", function () {
+                   {% if messages %}
+                       {% for message in messages %}
+                           Swal.fire({
+                               title: "{{ message }}",
+                               //text: "{{ message }}",
+                               icon: "{{ message.tags }}",
+                           });
+                       {% endfor %}
+                   {% endif %}
+               });
+       
+           // email alredy exsits
+               {% if messages %}
+                   {% for message in messages %}
+                       Swal.fire({
+                           title: "{{ message.tags }}",
+                           text: "{{ message }}",
+                           icon: "{{ message.tags }}",
+                       });
+                   {% endfor %}
+               {% endif %}
+       
+               // upassword and ucpassword can not be same show sweetalert msg
+               {% if pmsg %}
+               Swal.fire({
+                   title: 'Error!',
+                   text: '{{ pmsg }}',
+                   icon: 'error',
+                   confirmButtonText: 'OK'
+               });
+               {% endif %}
+           </script>
+       
+       
+           <Script>
+               // Function to handle password reset (you need to implement this based on your backend logic)
+               function resetPassword() {
+                   // Get the entered new password
+                   var newPassword = $('#newPassword').val();
+           
+                   // Get the entered confirm password
+                   var confirmPassword = $('#confirmPassword').val();
+           
+                   
+               }
+               function changePassword() {
+                   // Implement your change password logic here
+                   // Retrieve values from the change password form using jQuery
+                   var currentPassword = $('#currentPassword').val();
+                   var newPassword = $('#newPassword').val();
+                   var confirmNewPassword = $('#confirmNewPassword').val();
+           
+                   // Add your logic for changing the password
+           
+                   // After changing the password, you can close the modal
+                   $('#changePasswordModal').modal('hide');
+               }
+           </Script>
 
       <script>
       //================================================Change Password js==================================================================
@@ -690,14 +707,7 @@
                   // After changing the password, you can close the modal
                   $('#changePasswordModal').modal('hide');
               }
-          </script> 
-      
-          
-          
-
-
-
-            
+          </script>       
             <script>
                 window.onload = function() {
                     // Get references to the select element and the package price input field
@@ -717,8 +727,6 @@
                     packageTypeSelect.dispatchEvent(new Event('change'));
                 };
             </script>
-
-
 
             <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
             <script>
@@ -755,15 +763,6 @@
                     e.preventDefault();
                 }
             </script>            
-  
-
-
-                    
-                        
-
-            
-                        
-
 </body>
 
 </html>

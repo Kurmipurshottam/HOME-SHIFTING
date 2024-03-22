@@ -27,7 +27,8 @@
 <!-- search section start  -->
 <section id="search" >
   <div class="container search-block p-5">
-    <form class="row">
+    <form class="row" method="post" action="{% url 'index' %}">
+      {% csrf_token %}
       <div class="col-12 col-md-6 col-lg-10 mt-4 mt-lg-0">
         <label for="location" class="label-style text-capitalize form-label"
           >Track your Goods</label
@@ -36,6 +37,7 @@
           <input
             type="text"
             class="form-control p-3 position-relative"
+            name="order_id"
             id="location"
             placeholder="Enter your Tracking Number"
           />
@@ -47,14 +49,14 @@
           </span>
         </div>
       </div>
-
+      
       <div class="col-12 col-md-6 col-lg-3 mt-4 mt-lg-0" >
         <label
           for="location"
           class="label-style text-capitalize form-label"
         ></label>
         <div class="d-flex justify-content-between">
-          <a href="#" class="btn btn-primary">Track now </a>
+          <button class="btn btn-primary">Track now </button>
         </div>
       </div>
     </form>

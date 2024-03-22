@@ -30,6 +30,12 @@ urlpatterns = [
     path('delivery_logout', views.delivery_logout, name='delivery_logout'),
     path('packages', views.packages, name='packages'),
     path('packages_details', views.packages_details, name='packages_details'),
-    path('dpayments', views.dpayments, name='dpayments'),
+    path('delivery_payments', views.delivery_payments, name='delivery_payments'),
+    path('delivery_success', views.delivery_success, name='delivery_success'),
+    path('change_password', views.change_password, name='change_password'),
+    path('Withdrawal_funds/',views.Withdrawal_funds,name='Withdrawal_funds'), 
+    path('accept', views.accept, name='accept'),
+    path('reject', views.reject, name='reject'),
+    path('finishride', views.finishride, name='finishride'),
 
 ]

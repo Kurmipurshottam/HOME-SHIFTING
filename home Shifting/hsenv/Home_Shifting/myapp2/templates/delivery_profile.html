@@ -15,9 +15,11 @@
          <a href="{% url 'delivery_profile_update' %}" class="inline-btn">update profile</a>
       </div>
 
-      <div class="box" style="height: 57rem; box-shadow: 1px 1px 2px 1px #aaaaaa;">
+      <div class="box" style="height: 70rem; box-shadow: 1px 1px 2px 1px #aaaaaa;">
          <h2 style="color: #94CA21; padding-top: 4.5rem; padding-left: 4.5rem;">Your Name : <span style="color:#aaaaaa;">{{truckpartner.t_name}}</span></h2>
-         {% comment %} <h2 style="color: #94CA21; padding-top: 4.5rem; padding-left: 4.5rem;">Your Package Type : <span style="color:#aaaaaa;">{{truckpartner.t_packagetype}}</span></h2> {% endcomment %}
+         <h2 style="color: #94CA21; padding-top: 4.5rem; padding-left: 4.5rem;">Your Package Type : <span style="color:#aaaaaa;">{{truckpartner.package_type}}</span></h2> 
+         <h2 style="color: #94CA21; padding-top: 4.5rem; padding-left: 4.5rem;">Your Package Start Date : <span style="color:#aaaaaa;">{{truckpartner.start_date}}</span></h2> 
+         <h2 style="color: #94CA21; padding-top: 4.5rem; padding-left: 4.5rem;">Your Package End Date : <span style="color:#aaaaaa;">{{truckpartner.end_date}}</span></h2> 
          <h2 style="color: #94CA21; padding-top: 4.5rem; padding-left: 4.5rem;">Your Email : <span style="color:#aaaaaa;">{{truckpartner.t_email}}</span></h2>
          <h2 style="color: #94CA21; padding-top: 4.5rem; padding-left: 4.5rem;">Your Contact : <span style="color:#aaaaaa;">{{truckpartner.t_contact}}</span></h2>
          <h2 style="color: #94CA21; padding-top: 4.5rem; padding-left: 4.5rem;">Your Adhaarcard : <span style="color:#aaaaaa;">{{truckpartner.t_aadharcard_details}}</span></h2>
@@ -33,7 +35,7 @@
             <div class="flex">
                <i class="fas fa-bookmark"></i>
                <div>
-                  <span>4</span>
+                  <span>{{ride.total_trip}}</span>
                   <p>Total Trip</p>
                </div>
             </div>
@@ -44,7 +46,7 @@
             <div class="flex">
                <i class="fa-solid fa-indian-rupee-sign"></i>
                <div>
-                  <span>33</span>
+                  <span>{{ride.today_earning}}</span>
                   <p>Today Erning</p>
                </div>
             </div>
@@ -55,7 +57,7 @@
             <div class="flex">
                <i class="fa-solid fa-indian-rupee-sign"></i>
                <div>
-                  <span>12</span>
+                  <span>{{ride.total_earning}}</span>
                   <p>Total Erning</p>
                </div>
             </div>
